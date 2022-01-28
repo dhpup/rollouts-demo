@@ -63,7 +63,6 @@ func init() {
 }
 
 func main() {
-	mux := http.NewServeMux()
 	var (
 		listenAddr       string
 		terminationDelay int
@@ -79,6 +78,7 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	router := http.NewServeMux()
+	router = apmhttp.Wrap(mux)
 	router.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir("./"))))
 	router.HandleFunc("/color", getColor)
 
@@ -132,7 +132,6 @@ func main() {
 
 	<-done
 	log.Println("Server stopped")
-	http.ListenAndServe(":8080", apmhttp.Wrap(mux))
 }
 
 type colorParameters struct {

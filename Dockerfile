@@ -14,9 +14,9 @@ COPY *.css ./
 COPY --from=build /go/src/app/rollouts-demo /rollouts-demo
 
 ARG COLOR
-ENV COLOR=yellow
+ENV COLOR=purple
 ARG ERROR_RATE
-ENV ERROR_RATE=50
+ENV ERROR_RATE=0
 ARG LATENCY
 ENV LATENCY=0
 

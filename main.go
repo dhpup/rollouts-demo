@@ -15,6 +15,8 @@ import (
 	"strconv"
 	"syscall"
 	"time"
+	"net/http"
+	"go.elastic.co/apm/module/apmhttp"
 )
 
 const (
@@ -60,6 +62,7 @@ func init() {
 }
 
 func main() {
+	mux := http.NewServeMux()
 	var (
 		listenAddr       string
 		terminationDelay int
@@ -128,6 +131,7 @@ func main() {
 
 	<-done
 	log.Println("Server stopped")
+	http.ListenAndServe(":8080", apmhttp.Wrap(mux))
 }
 
 type colorParameters struct {

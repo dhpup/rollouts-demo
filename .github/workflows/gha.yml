@@ -24,4 +24,4 @@ jobs:
       run: docker build . --file Dockerfile --tag dhpup/rollouts-demo:bad-yellow
       
     - name: Docker Push
-      run: docker push dhpup/rollouts-demo
+      run: docker push dhpup/rollouts-demo:bad-yellow

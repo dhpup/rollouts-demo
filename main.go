@@ -58,6 +58,8 @@ func init() {
 			panic(fmt.Sprintf("failed to parse ERROR_RATE: %s", envErrorRateStr))
 		}
 	}
+	envTest := os.Getend("ELASTIC_APM_SERVER_URL")
+	log.Printf("danURL: %s", envTest)
 }
 
 func main() {
@@ -236,3 +238,4 @@ func cpuBurn(done <-chan bool, numCPUBurn string) {
 		}(i)
 	}
 }
+

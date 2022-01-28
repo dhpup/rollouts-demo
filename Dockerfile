@@ -7,6 +7,7 @@ ENV ELASTIC_APM_SECRET_TOKEN=Ueju5wbb7izfFX2Hgb
 ENV ELASTIC_APM_ENVIRONMENT=prod
 RUN go get go.elastic.co/apm
 RUN go get go.elastic.co/apm/module/apmhttp
+
 RUN make
 
 FROM scratch

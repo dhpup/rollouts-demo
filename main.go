@@ -15,7 +15,6 @@ import (
 	"strconv"
 	"syscall"
 	"time"
-	"net/http"
 	"go.elastic.co/apm/module/apmhttp"
 )
 

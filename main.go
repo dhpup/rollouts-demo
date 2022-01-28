@@ -78,13 +78,12 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	router := http.NewServeMux()
-	router = apmhttp.Wrap(mux)
 	router.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir("./"))))
 	router.HandleFunc("/color", getColor)
 
 	server := &http.Server{
 		Addr:    listenAddr,
-		Handler: router,
+		Handler: apmhttp.Wrap(router),
 	}
 	if tls {
 		tlsConfig, err := CreateServerTLSConfig("", "", []string{"localhost", "rollouts-demo"})

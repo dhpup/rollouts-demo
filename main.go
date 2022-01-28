@@ -40,6 +40,7 @@ var (
 	}
 	envLatency   float64
 	envErrorRate int
+	envTest = os.Getenv("ELASTIC_APM_SERVER_URL")
 )
 
 func init() {
@@ -58,7 +59,6 @@ func init() {
 			panic(fmt.Sprintf("failed to parse ERROR_RATE: %s", envErrorRateStr))
 		}
 	}
-	envTest := os.Getenv("ELASTIC_APM_SERVER_URL")
 	log.Printf("danURL: %s", envTest)
 }
 

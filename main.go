@@ -15,6 +15,7 @@ import (
 	"strconv"
 	"syscall"
 	"time"
+	"go.elastic.co/apm/module/apmhttp"
 )
 
 const (
@@ -39,6 +40,7 @@ var (
 	}
 	envLatency   float64
 	envErrorRate int
+	envTest = os.Getenv("ELASTIC_APM_SERVER_URL")
 )
 
 func init() {
@@ -57,6 +59,7 @@ func init() {
 			panic(fmt.Sprintf("failed to parse ERROR_RATE: %s", envErrorRateStr))
 		}
 	}
+	log.Printf("danURL: %s", envTest)
 }
 
 func main() {
@@ -80,7 +83,7 @@ func main() {
 
 	server := &http.Server{
 		Addr:    listenAddr,
-		Handler: router,
+		Handler: apmhttp.Wrap(router),
 	}
 	if tls {
 		tlsConfig, err := CreateServerTLSConfig("", "", []string{"localhost", "rollouts-demo"})
@@ -233,3 +236,4 @@ func cpuBurn(done <-chan bool, numCPUBurn string) {
 		}(i)
 	}
 }
+
